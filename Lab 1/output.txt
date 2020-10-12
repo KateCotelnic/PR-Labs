@@ -1,0 +1,161 @@
+Server:
+
+/register: {"access_token": "TxAMCx5NTlRKV1FcQ1pUUV9QXER4XFtHUUlbXlpBQEpUVEVQRVRbU1cHUVRPVkZYV1FDQkdIUEBBX1BzWVVMVERGXE1NSEpTQQg=", "link": "/home"}
+/home: {"msg": "Up and running", "link": {"route_1": "/route/1", "route_2": "/route/2", "route_3": "/route/3", "route_4": "/route/4"}}
+/route/2: {"data": "id,first_name,last_name,email,gender,ip_address\n2,Rosette,Borg,rborg1@howstuffworks.com,Female,136.40.51.238\n4,Heath,Siberry,hsiberry3@sciencedaily.com,Female,18.4.160.48\n5,Ethelbert,Havill,ehavill4@webmd.com,Male,72.177.185.174\n6,Luce,Hellard,lhellard5@zimbio.com,Male,142.222.82.249\n10,Court,Munn,cmunn9@pagesperso-orange.fr,Male,213.122.242.170\n", "mime_type": "text/csv"}
+
+/route/3: {"data": "[{\"id\":1,\"first_name\":\"Foster\",\"last_name\":\"Ertelt\",\"card_number\":\"633110490571233798\",\"card_balance\":\"$9632.09\",\"card_currency\":\"PKR\"},\n{\"id\":2,\"first_name\":\"Vinni\",\"last_name\":\"Hulland\",\"card_number\":\"3572930550290464\",\"card_balance\":\"$376.34\",\"card_currency\":\"JPY\"},\n{\"id\":4,\"first_name\":\"Randolf\",\"last_name\":\"Terbrugge\",\"card_number\":\"491198425137895662\",\"card_balance\":\"$7216.38\",\"card_currency\":\"PLN\"},\n{\"id\":5,\"first_name\":\"Loella\",\"last_name\":\"Adriano\",\"card_number\":\"3570354720410328\",\"card_balance\":\"$7148.32\",\"card_currency\":\"KZT\"},\n{\"id\":8,\"first_name\":\"Brandise\",\"last_name\":\"Richichi\",\"card_number\":\"676288665672350550\",\"card_balance\":\"$1628.24\",\"card_currency\":\"IDR\"},\n{\"id\":9,\"first_name\":\"Fielding\",\"last_name\":\"Solomonides\",\"card_number\":\"5100145771458404\",\"card_balance\":\"$647.05\",\"card_currency\":\"COP\"}]\n", "link": {"route_31": "/route/3/1", "route_32": "/route/3/2", "route_33": "/route/3/3"}}
+
+/route/1: {"data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<dataset>\n    <record>\n        <id>3</id>\n        <first_name>Agnese</first_name>\n        <last_name>Gibbin</last_name>\n        <bitcoin_address>1Ao6aDmuK9hRC11LkjpWpWDDBHCgB6jDfy</bitcoin_address>\n    </record>\n    <record>\n        <id>4</id>\n        <first_name>Brandon</first_name>\n        <last_name>Schoffler</last_name>\n        <bitcoin_address>1FaTxWWQwymRAp4xbfVRz3NzNhGhwhP5uC</bitcoin_address>\n    </record>\n    <record>\n        <id>8</id>\n        <first_name>Christian</first_name>\n        <last_name>Gullen</last_name>\n        <bitcoin_address>1Q8BqwManW3C8d4HExQuKy9wxyQy7FtfU5</bitcoin_address>\n    </record>\n    <record>\n        <id>9</id>\n        <first_name>Ernestine</first_name>\n        <last_name>Arnald</last_name>\n        <bitcoin_address>1HeCkTLnabzuNMCUtSQQozWHFXkEstjS6a</bitcoin_address>\n    </record>\n    <record>\n        <id>10</id>\n        <first_name>Jeannie</first_name>\n        <last_name>Touhig</last_name>\n        <bitcoin_address>1J8Bpk1GDt2vwe33eqaN4T31aheYEGudb6</bitcoin_address>\n    </record>\n</dataset>\n", "link": {"route_11": "/route/1/1", "route_12": "/route/1/2"}, "mime_type": "application/xml"}
+
+/route/1/2: {"data": "id,first_name,last_name,email,gender,ip_address\n1,Jermayne,Stevings,jstevings0@time.com,Male,126.144.109.82\n3,Tildy,Guiso,tguiso2@wix.com,Female,235.113.1.92\n7,Courtney,Swainger,cswainger6@nbcnews.com,Female,120.31.214.140\n8,Jodi,O'Carroll,jocarroll7@springer.com,Female,92.48.44.22\n9,Katusha,Greenough,kgreenough8@last.fm,Female,71.223.55.209\n10,Court,Munn,cmunn9@pagesperso-orange.fr,Male,213.122.242.170\n", "mime_type": "text/csv"}
+
+/route/3/1: {"data": "---\n- id: 3\n  first_name: Collie\n  last_name: Venable\n  card_number: '6304878179713534098'\n  card_balance: \n  card_currency: \n- id: 6\n  first_name: Caroljean\n  last_name: Colwill\n  card_number: '3540356838728217'\n  card_balance: \"$8796.02\"\n  card_currency: IRR\n- id: 7\n  first_name: Nikki\n  last_name: Arnauduc\n  card_number: '3580161468579083'\n  card_balance: \"$9476.63\"\n  card_currency: PKR\n- id: 10\n  first_name: Riobard\n  last_name: Smeall\n  card_number: '5307839238517296'\n  card_balance: \n  card_currency: \n\n", "mime_type": "application/x-yaml"}
+
+/route/3/2: {"data": "id,username,email,created_account_data\n1,nryce0,rpicardo0@gizmodo.com,11/27/2018\n2,rmarkwick1,tcoward1@tinyurl.com,12/18/2018\n5,sbuttress4,kgoulbourne4@miitbeian.gov.cn,12/24/2018\n7,apettinger6,bdarycott6@ehow.com,4/29/2019\n9,pdaniello8,cspilisy8@cpanel.net,6/22/2019\n10,gclift9,rgueste9@joomla.org,1/4/2019\n", "mime_type": "text/csv"}
+
+/route/1/1: {"data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<dataset>\n    <record>\n        <id>1</id>\n        <first_name>Ora</first_name>\n        <last_name>Syddie</last_name>\n        <bitcoin_address>1CLTQDLrw9t6CRiSypu2Hnd8ubhkkekbTp</bitcoin_address>\n    </record>\n    <record>\n        <id>2</id>\n        <first_name>Stoddard</first_name>\n        <last_name>Kielty</last_name>\n        <bitcoin_address>1LzEd765aq1RxqF3mTTsGac1DA3Bd4ZkxD</bitcoin_address>\n    </record>\n    <record>\n        <id>5</id>\n        <first_name>Wittie</first_name>\n        <last_name>Weller</last_name>\n        <bitcoin_address>14NXYyXmWDFK1JSFEunZ9AJq9mt1Xq3eAV</bitcoin_address>\n    </record>\n    <record>\n        <id>6</id>\n        <first_name>Koral</first_name>\n        <last_name>Bravey</last_name>\n        <bitcoin_address>1Npsbh7Yz1fZKqKnfadg5Uu2yBBfzWjKAZ</bitcoin_address>\n    </record>\n    <record>\n        <id>7</id>\n        <first_name>Brigit</first_name>\n        <last_name>Curless</last_name>\n        <bitcoin_address>1AQKrdRPHMAuGbkPFmmGsPfrCJm8YqS69J</bitcoin_address>\n    </record>\n</dataset>\n", "mime_type": "application/xml"}
+
+/route/3/3: {"data": "id,username,email,created_account_data\n3,mdraayer2,fwindows2@myspace.com,4/5/2019\n4,adiemer3,rrydings3@qq.com,2/8/2019\n6,gliddicoat5,kableson5@omniture.com,7/2/2019\n8,cgrolle7,tbeardshall7@w3.org,9/7/2019\n12,astoakleyb,rannottb@shop-pro.jp,11/26/2018\n15,bhrinchenkoe,csollnere@angelfire.com,5/23/2019\n16,gridettf,jsimeonovf@theglobeandmail.com,11/8/2018\n20,amaccleayj,rfortnumj@dedecms.com,12/27/2018\n", "link": {"route_331": "/route/3/3/1", "route_332": "/route/3/3/2"}, "mime_type": "text/csv"}
+
+/route/3/3/2: {"data": "[{\"email\":\"dtyas0@github.com\",\"organization\":\"Zoonder\",\"full_name\":\"Druci Tyas\",\"employee_id\":\"36-0066196\"},\n{\"email\":\"edonaghy1@networkadvertising.org\",\"organization\":\"Babbleblab\",\"full_name\":\"Evvy Donaghy\",\"employee_id\":\"12-2365264\"},\n{\"email\":\"gagerskow5@adobe.com\",\"organization\":\"Meemm\",\"full_name\":\"Gary Agerskow\",\"employee_id\":\"11-7548723\"},\n{\"email\":\"iolenane6@imageshack.us\",\"organization\":\"Pixope\",\"full_name\":\"Isidore O'Lenane\",\"employee_id\":\"64-8427054\"},\n{\"email\":\"vwynett7@ed.gov\",\"organization\":\"Dazzlesphere\",\"full_name\":\"Vikky Wynett\",\"employee_id\":\"01-7700844\"},\n{\"email\":\"ssagee@amazonaws.com\",\"organization\":\"Jaloo\",\"full_name\":\"Shawn Sage\",\"employee_id\":\"55-0926932\"},\n{\"email\":\"fblaslif@people.com.cn\",\"organization\":\"Realcube\",\"full_name\":\"Fabian Blasli\",\"employee_id\":\"30-9035208\"},\n{\"email\":\"jswanng@eventbrite.com\",\"organization\":\"Yotz\",\"full_name\":\"Jacquenetta Swann\",\"employee_id\":\"03-4127236\"},\n{\"email\":\"ashopcotth@ifeng.com\",\"organization\":\"Voonder\",\"full_name\":\"Antin Shopcott\",\"employee_id\":\"73-4525498\"},]\n"}
+
+/route/3/3/1: {"data": "id,username,email,created_account_data\n11,ncowopea,bedisa@soup.io,3/11/2019\n13,twickeyc,vlowsonc@privacy.gov.au,7/26/2019\n14,ebastind,bfarrearsd@ca.gov,12/20/2018\n17,shenningtong,blumberg@paypal.com,11/26/2018\n18,vgioanih,iandreoneh@hubpages.com,6/18/2019\n19,rbeckinghami,rrockelli@shop-pro.jp,3/25/2019\n", "mime_type": "text/csv"}
+
+/route/4: {"data": "[{\"email\":\"hschukert2@arizona.edu\",\"organization\":\"Bubblebox\",\"full_name\":\"Heath Schukert\",\"employee_id\":\"32-8682356\"},\n{\"email\":\"dbeautyman3@liveinternet.ru\",\"organization\":\"Riffwire\",\"full_name\":\"Daryl Beautyman\",\"employee_id\":\"60-9658600\"},\n{\"email\":\"omacneilage4@cargocollective.com\",\"organization\":\"Topicblab\",\"full_name\":\"Orelle MacNeilage\",\"employee_id\":\"74-5679141\"},\n{\"email\":\"kscamal8@jigsy.com\",\"organization\":\"Yakijo\",\"full_name\":\"Konrad Scamal\",\"employee_id\":\"15-1125145\"},\n{\"email\":\"rdowning9@vimeo.com\",\"organization\":\"Jabbertype\",\"full_name\":\"Rancell Downing\",\"employee_id\":\"87-0369483\"},\n{\"email\":\"aparnhama@printfriendly.com\",\"organization\":\"Minyx\",\"full_name\":\"Alyson Parnham\",\"employee_id\":\"93-0291368\"},\n{\"email\":\"folenaneb@qq.com\",\"organization\":\"Yotz\",\"full_name\":\"Flemming O'Lenane\",\"employee_id\":\"64-6365740\"},\n{\"email\":\"jpavlitschekc@cnbc.com\",\"organization\":\"Flipopia\",\"full_name\":\"Jessamyn Pavlitschek\",\"employee_id\":\"13-1792324\"},\n{\"email\":\"aabrahartd@mayoclinic.com\",\"organization\":\"Oyoyo\",\"full_name\":\"Angelia Abrahart\",\"employee_id\":\"42-7009055\"},\n{\"email\":\"mjelki@nih.gov\",\"organization\":\"Kazu\",\"full_name\":\"Marshal Jelk\",\"employee_id\":\"83-6689710\"},\n{\"email\":\"cdoustj@yellowpages.com\",\"organization\":\"Zoomlounge\",\"full_name\":\"Cass Doust\",\"employee_id\":\"10-4732717\"}]\n"}
+
+id | first_name | last_name | email | gender | ip_address | bitcoin_address | card_number | card_balance | card_currency | username | created_account_data | organization | full_name | employee_id | null | 
+2 | Rosette | Borg | rborg1@howstuffworks.com | Female | 136.40.51.238 | null | null | null | null | null | null | null | null | null | null | 
+4 | Heath | Siberry | hsiberry3@sciencedaily.com | Female | 18.4.160.48 | null | null | null | null | null | null | null | null | null | null | 
+5 | Ethelbert | Havill | ehavill4@webmd.com | Male | 72.177.185.174 | null | null | null | null | null | null | null | null | null | null | 
+6 | Luce | Hellard | lhellard5@zimbio.com | Male | 142.222.82.249 | null | null | null | null | null | null | null | null | null | null | 
+10 | Court | Munn | cmunn9@pagesperso-orange.fr | Male | 213.122.242.170 | null | null | null | null | null | null | null | null | null | null | 
+3 | Agnese | Gibbin | null | null | null | 1Ao6aDmuK9hRC11LkjpWpWDDBHCgB6jDfy | null | null | null | null | null | null | null | null | null | 
+4 | Brandon | Schoffler | null | null | null | 1FaTxWWQwymRAp4xbfVRz3NzNhGhwhP5uC | null | null | null | null | null | null | null | null | null | 
+8 | Christian | Gullen | null | null | null | 1Q8BqwManW3C8d4HExQuKy9wxyQy7FtfU5 | null | null | null | null | null | null | null | null | null | 
+9 | Ernestine | Arnald | null | null | null | 1HeCkTLnabzuNMCUtSQQozWHFXkEstjS6a | null | null | null | null | null | null | null | null | null | 
+10 | Jeannie | Touhig | null | null | null | 1J8Bpk1GDt2vwe33eqaN4T31aheYEGudb6 | null | null | null | null | null | null | null | null | null | 
+1 | Foster | Ertelt | null | null | null | null | 633110490571233798 | $9632.09 | PKR | null | null | null | null | null | null | 
+2 | Vinni | Hulland | null | null | null | null | 3572930550290464 | $376.34 | JPY | null | null | null | null | null | null | 
+4 | Randolf | Terbrugge | null | null | null | null | 491198425137895662 | $7216.38 | PLN | null | null | null | null | null | null | 
+5 | Loella | Adriano | null | null | null | null | 3570354720410328 | $7148.32 | KZT | null | null | null | null | null | null | 
+8 | Brandise | Richichi | null | null | null | null | 676288665672350550 | $1628.24 | IDR | null | null | null | null | null | null | 
+9 | Fielding | Solomonides | null | null | null | null | 5100145771458404 | $647.05 | COP | null | null | null | null | null | null | 
+1 | Jermayne | Stevings | jstevings0@time.com | Male | 126.144.109.82 | null | null | null | null | null | null | null | null | null | null | 
+3 | Tildy | Guiso | tguiso2@wix.com | Female | 235.113.1.92 | null | null | null | null | null | null | null | null | null | null | 
+7 | Courtney | Swainger | cswainger6@nbcnews.com | Female | 120.31.214.140 | null | null | null | null | null | null | null | null | null | null | 
+8 | Jodi | O'Carroll | jocarroll7@springer.com | Female | 92.48.44.22 | null | null | null | null | null | null | null | null | null | null | 
+9 | Katusha | Greenough | kgreenough8@last.fm | Female | 71.223.55.209 | null | null | null | null | null | null | null | null | null | null | 
+10 | Court | Munn | cmunn9@pagesperso-orange.fr | Male | 213.122.242.170 | null | null | null | null | null | null | null | null | null | null | 
+3 | Collie | Venable | null | null | null | null | '6304878179713534098' |  |  | null | null | null | null | null | null | 
+6 | Caroljean | Colwill | null | null | null | null | '3540356838728217' | "$8796.02" | IRR | null | null | null | null | null | null | 
+7 | Nikki | Arnauduc | null | null | null | null | '3580161468579083' | "$9476.63" | PKR | null | null | null | null | null | null | 
+1 | nryce0 | rpicardo0@gizmodo.com | 11/27/2018 | null | null | null | '5307839238517296' |  |  | null | null | null | null | null | null | 
+2 | rmarkwick1 | tcoward1@tinyurl.com | 12/18/2018 | null | null | null | null | null | null | null | null | null | null | null | null | 
+5 | sbuttress4 | kgoulbourne4@miitbeian.gov.cn | 12/24/2018 | null | null | null | null | null | null | null | null | null | null | null | null | 
+7 | apettinger6 | bdarycott6@ehow.com | 4/29/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+9 | pdaniello8 | cspilisy8@cpanel.net | 6/22/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+10 | gclift9 | rgueste9@joomla.org | 1/4/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+1 | Ora | Syddie | null | null | null | 1CLTQDLrw9t6CRiSypu2Hnd8ubhkkekbTp | null | null | null | null | null | null | null | null | null | 
+2 | Stoddard | Kielty | null | null | null | 1LzEd765aq1RxqF3mTTsGac1DA3Bd4ZkxD | null | null | null | null | null | null | null | null | null | 
+5 | Wittie | Weller | null | null | null | 14NXYyXmWDFK1JSFEunZ9AJq9mt1Xq3eAV | null | null | null | null | null | null | null | null | null | 
+6 | Koral | Bravey | null | null | null | 1Npsbh7Yz1fZKqKnfadg5Uu2yBBfzWjKAZ | null | null | null | null | null | null | null | null | null | 
+7 | Brigit | Curless | null | null | null | 1AQKrdRPHMAuGbkPFmmGsPfrCJm8YqS69J | null | null | null | null | null | null | null | null | null | 
+3 | mdraayer2 | fwindows2@myspace.com | 4/5/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+4 | adiemer3 | rrydings3@qq.com | 2/8/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+6 | gliddicoat5 | kableson5@omniture.com | 7/2/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+8 | cgrolle7 | tbeardshall7@w3.org | 9/7/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+12 | astoakleyb | rannottb@shop-pro.jp | 11/26/2018 | null | null | null | null | null | null | null | null | null | null | null | null | 
+15 | bhrinchenkoe | csollnere@angelfire.com | 5/23/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+16 | gridettf | jsimeonovf@theglobeandmail.com | 11/8/2018 | null | null | null | null | null | null | null | null | null | null | null | null | 
+20 | amaccleayj | rfortnumj@dedecms.com | 12/27/2018 | null | null | null | null | null | null | null | null | null | null | null | null | 
+null | null | null | dtyas0@github.com | null | null | null | null | null | null | null | null | Zoonder | Druci Tyas | 36-0066196 | null | 
+null | null | null | edonaghy1@networkadvertising.org | null | null | null | null | null | null | null | null | Babbleblab | Evvy Donaghy | 12-2365264 | null | 
+null | null | null | gagerskow5@adobe.com | null | null | null | null | null | null | null | null | Meemm | Gary Agerskow | 11-7548723 | null | 
+null | null | null | iolenane6@imageshack.us | null | null | null | null | null | null | null | null | Pixope | Isidore O'Lenane | 64-8427054 | null | 
+null | null | null | vwynett7@ed.gov | null | null | null | null | null | null | null | null | Dazzlesphere | Vikky Wynett | 01-7700844 | null | 
+null | null | null | ssagee@amazonaws.com | null | null | null | null | null | null | null | null | Jaloo | Shawn Sage | 55-0926932 | null | 
+null | null | null | fblaslif@people.com.cn | null | null | null | null | null | null | null | null | Realcube | Fabian Blasli | 30-9035208 | null | 
+null | null | null | jswanng@eventbrite.com | null | null | null | null | null | null | null | null | Yotz | Jacquenetta Swann | 03-4127236 | null | 
+null | null | null | ashopcotth@ifeng.com | null | null | null | null | null | null | null | null | Voonder | Antin Shopcott | 73-4525498 | null | 
+11 | ncowopea | bedisa@soup.io | 3/11/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+13 | twickeyc | vlowsonc@privacy.gov.au | 7/26/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+14 | ebastind | bfarrearsd@ca.gov | 12/20/2018 | null | null | null | null | null | null | null | null | null | null | null | null | 
+17 | shenningtong | blumberg@paypal.com | 11/26/2018 | null | null | null | null | null | null | null | null | null | null | null | null | 
+18 | vgioanih | iandreoneh@hubpages.com | 6/18/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+19 | rbeckinghami | rrockelli@shop-pro.jp | 3/25/2019 | null | null | null | null | null | null | null | null | null | null | null | null | 
+null | null | null | hschukert2@arizona.edu | null | null | null | null | null | null | null | null | Bubblebox | Heath Schukert | 32-8682356 | null | 
+null | null | null | dbeautyman3@liveinternet.ru | null | null | null | null | null | null | null | null | Riffwire | Daryl Beautyman | 60-9658600 | null | 
+null | null | null | omacneilage4@cargocollective.com | null | null | null | null | null | null | null | null | Topicblab | Orelle MacNeilage | 74-5679141 | null | 
+null | null | null | kscamal8@jigsy.com | null | null | null | null | null | null | null | null | Yakijo | Konrad Scamal | 15-1125145 | null | 
+null | null | null | rdowning9@vimeo.com | null | null | null | null | null | null | null | null | Jabbertype | Rancell Downing | 87-0369483 | null | 
+null | null | null | aparnhama@printfriendly.com | null | null | null | null | null | null | null | null | Minyx | Alyson Parnham | 93-0291368 | null | 
+null | null | null | folenaneb@qq.com | null | null | null | null | null | null | null | null | Yotz | Flemming O'Lenane | 64-6365740 | null | 
+null | null | null | jpavlitschekc@cnbc.com | null | null | null | null | null | null | null | null | Flipopia | Jessamyn Pavlitschek | 13-1792324 | null | 
+null | null | null | aabrahartd@mayoclinic.com | null | null | null | null | null | null | null | null | Oyoyo | Angelia Abrahart | 42-7009055 | null | 
+null | null | null | mjelki@nih.gov | null | null | null | null | null | null | null | null | Kazu | Marshal Jelk | 83-6689710 | null | 
+null | null | null | cdoustj@yellowpages.com | null | null | null | null | null | null | null | null | Zoomlounge | Cass Doust | 10-4732717 | null | 
+
+
+Client:
+
+Enter the one of the following commands: 
+           SelectAllColumnNames
+           SelectColumn <column_name> 
+           SelectFromColumn <column_name> <search_for>
+           SelectRow <row_index>
+           SelectRowWith <search_for>
+           Exit
+SelectAllColumnNames
+id   first_name   last_name   email   gender   ip_address   bitcoin_address   card_number   card_balance   card_currency   username   created_account_data   organization   full_name   employee_id   
+
+Enter the one of the following commands: 
+           SelectAllColumnNames
+           SelectColumn <column_name> 
+           SelectFromColumn <column_name> <search_for>
+           SelectRow <row_index>
+           SelectRowWith <search_for>
+           Exit
+SelectColumn email
+rborg1@howstuffworks.com  hsiberry3@sciencedaily.com  ehavill4@webmd.com  lhellard5@zimbio.com  cmunn9@pagesperso-orange.fr  jstevings0@time.com  tguiso2@wix.com  cswainger6@nbcnews.com  jocarroll7@springer.com  kgreenough8@last.fm  cmunn9@pagesperso-orange.fr  11/27/2018  12/18/2018  12/24/2018  4/29/2019  6/22/2019  1/4/2019  4/5/2019  2/8/2019  7/2/2019  9/7/2019  11/26/2018  5/23/2019  11/8/2018  12/27/2018  dtyas0@github.com  edonaghy1@networkadvertising.org  gagerskow5@adobe.com  iolenane6@imageshack.us  vwynett7@ed.gov  ssagee@amazonaws.com  fblaslif@people.com.cn  jswanng@eventbrite.com  ashopcotth@ifeng.com  3/11/2019  7/26/2019  12/20/2018  11/26/2018  6/18/2019  3/25/2019  hschukert2@arizona.edu  dbeautyman3@liveinternet.ru  omacneilage4@cargocollective.com  kscamal8@jigsy.com  rdowning9@vimeo.com  aparnhama@printfriendly.com  folenaneb@qq.com  jpavlitschekc@cnbc.com  aabrahartd@mayoclinic.com  mjelki@nih.gov  cdoustj@yellowpages.com  
+
+Enter the one of the following commands: 
+           SelectAllColumnNames
+           SelectColumn <column_name> 
+           SelectFromColumn <column_name> <search_for>
+           SelectRow <row_index>
+           SelectRowWith <search_for>
+           Exit
+SelectFromColumn ip_address 5
+136.40.51.238  72.177.185.174  235.113.1.92  71.223.55.209  
+
+Enter the one of the following commands: 
+           SelectAllColumnNames
+           SelectColumn <column_name> 
+           SelectFromColumn <column_name> <search_for>
+           SelectRow <row_index>
+           SelectRowWith <search_for>
+           Exit
+SelectRow 26
+2  rmarkwick1  tcoward1@tinyurl.com  12/18/2018  
+
+Enter the one of the following commands: 
+           SelectAllColumnNames
+           SelectColumn <column_name> 
+           SelectFromColumn <column_name> <search_for>
+           SelectRow <row_index>
+           SelectRowWith <search_for>
+           Exit
+SelectRowWith Jodi
+8  Jodi  O'Carroll  jocarroll7@springer.com  Female  92.48.44.22  null  null  null  null  null  null  null  null  null  null  
+
+Enter the one of the following commands: 
+           SelectAllColumnNames
+           SelectColumn <column_name> 
+           SelectFromColumn <column_name> <search_for>
+           SelectRow <row_index>
+           SelectRowWith <search_for>
+           Exit
+Exit
+
+Process finished with exit code 0
