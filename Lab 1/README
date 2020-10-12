@@ -1,0 +1,30 @@
+To launch the project you need:
+
+1. pull the docker container from cmd
+      
+2. run the docker-compose.yml file (running the docker container)
+
+3. run the main class in Server project
+
+4. when in the server console will appear a table with datas, run the main class from Client project
+
+
+I inplemented the following options for a client to use:
+
+           SelectAllColumnNames
+displays names of the columns
+
+           SelectColumn <column_name> 
+displays all not null cells from column <column_name>
+
+           SelectFromColumn <column_name> <search_for>
+displays all cells from column <column_name>, that contains the key word <search_for>
+
+           SelectRow <row_index>
+displays all data of a person from row <row_index>
+
+           SelectRowWith <search_for>
+displays all information about the person, where any cell in this row contains a keyword <search_for>
+           
+           Exit
+end the both programs: client and the server
