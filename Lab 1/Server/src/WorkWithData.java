@@ -6,26 +6,30 @@ public class WorkWithData {
     private static FinalData finalData = new FinalData();
     private static int i = 0;
 
-    public static void structure_data(String[] data) throws JSONException, IOException {
+    public static FinalData getFinalData() {
+        return finalData;
+    }
+
+    public static void structureData(String[] data) throws JSONException, IOException {
         int i=0;
         while (data[i]!=null){
             if (data[i].startsWith("[")) {
                 jsonToTable(data[i]);
             }
-            else if(data[i].startsWith("id")){
-                tableToTable(data[i]);
+            else if(data[i].startsWith("-")){
+                mimeToTable(data[i]);
             }
             else if (data[i].startsWith("<?xml")){
                 xmlToTable(data[i]);
             }
             else {
-                elseToTable(data[i]);
+                tableToTable(data[i]);
+//                System.out.println(data[i]);
             }
             i++;
 
         }
         finalData.print();
-        Server.go(finalData);
     }
 
     private static void jsonToTable(String str) {
@@ -111,7 +115,6 @@ public class WorkWithData {
         }
     }
 
-
     private static void xmlToTable(String str){
         while (!str.startsWith("<id>")) {
             str = str.substring(1);
@@ -150,7 +153,7 @@ public class WorkWithData {
         }
     }
 
-    private static void elseToTable(String str) {
+    private static void mimeToTable(String str) {
         str = str.substring(5);
         while (str.length()>2){
             while (!Character.isLetter(str.charAt(0))) {

@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,7 +69,7 @@ public class URLConnectionReader {
         if(obj.has("link")) {
             JSONObject object = new JSONObject(obj.getString("link"));
 
-            ExecutorService executorService = Executors.newFixedThreadPool(5);
+            ExecutorService executorService = Executors.newFixedThreadPool(6);
             for (Iterator it = object.keys(); it.hasNext(); ) {
                 Object key = it.next();
                 String keyStr = (String) key;
@@ -79,6 +80,10 @@ public class URLConnectionReader {
                 executorService.execute(thread1);
             }
             executorService.shutdown();
+            try{
+                executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            } catch (InterruptedException e) {
+            }
         }
     }
 }

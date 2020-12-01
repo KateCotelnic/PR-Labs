@@ -8,8 +8,5 @@ public class Data {
     public void addData(String data) throws JSONException, IOException {
         this.all_data[i] = data;
         i++;
-        if(i==11) {
-            WorkWithData.structure_data(all_data);
-        }
     }
 }
