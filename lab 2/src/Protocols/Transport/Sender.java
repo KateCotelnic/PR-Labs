@@ -1,6 +1,6 @@
 package Protocols.Transport;
 
-import Protocols.Session.SecurityProtocol;
+//import Protocols.Session.SecurityProtocol;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -14,7 +14,7 @@ public class Sender implements Runnable{
     private int port;
     private String message;
 
-    public Sender(SecurityProtocol securityProtocol, DatagramSocket socket, InetAddress address, int port, String message) throws NoSuchAlgorithmException {
+    public Sender(DatagramSocket socket, InetAddress address, int port, String message) throws NoSuchAlgorithmException {
         this.socket = socket;
         this.address = address;
         this.port = port;

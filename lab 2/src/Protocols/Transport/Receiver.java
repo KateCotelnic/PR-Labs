@@ -1,6 +1,6 @@
 package Protocols.Transport;
 
-import Protocols.Session.SecurityProtocol;
+//import Protocols.Session.SecurityProtocol;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -17,13 +17,13 @@ public class Receiver implements Runnable{
     public static boolean is_ok = true;
     public int n = 0;
     public static int attempts = 5;
-    private SecurityProtocol securityProtocol;
+//    private SecurityProtocol securityProtocol;
 
-    public Receiver(DatagramSocket socket, SecurityProtocol securityProtocol) {
+    public Receiver(DatagramSocket socket) {
         this.orders = new ArrayList<>();
         this.messages = new ArrayList<>();
         this.socket = socket;
-        this.securityProtocol = securityProtocol;
+//        this.securityProtocol = securityProtocol;
     }
 
     public List<Integer> getOrders() {
@@ -36,14 +36,14 @@ public class Receiver implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("orders: " + orders.toString());
-        System.out.println("messages: " + messages.toString());
+//        System.out.println("orders: " + orders.toString());
+//        System.out.println("messages: " + messages.toString());
         if(!is_ok){
             kill();
         }
         while (!killed) {
             try {
-                doOnce(n);
+                doOnce();
                 n++;
             }
             catch (IOException ex)
@@ -53,12 +53,13 @@ public class Receiver implements Runnable{
 
     public void kill() { killed = true; }
 
-    private void doOnce(int n) throws IOException {
+    public void doOnce() throws IOException {
         byte[] bytes = new byte[100];
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         socket.receive(packet);
         String tmp = new String(bytes, 0, packet.getLength());
-        System.out.println("\nGot " + tmp);
+
+        System.out.println("\nGot: " + tmp);
 //        String key = "l5ukpxmtg7u8ko/t";
 //        SecurityProtocol securityProtocol = new SecurityProtocol(tmp);
 //        tmp = securityProtocol.getMessage();
@@ -87,21 +88,80 @@ public class Receiver implements Runnable{
         String newChecksum = TransportProtocol.getCRC32Checksum(bytesOfMessage) + "";
 //        newChecksum = "fe";
         if(!newChecksum.equals(receivedChecksum)){
-            System.out.println(newChecksum + " " + receivedChecksum);
+//            System.out.println(newChecksum + " " + receivedChecksum);
             is_ok = false;
         }
+//        else if(receivedMessage.equals("call")){
+//            is_ok = false;
+//        }
         else {
-            System.out.println("n = "+n);
-            if(n==0){
-             orders = new ArrayList<>();
-            }
-            System.out.println("orders: " + orders.toString());
-            System.out.println("\nOrder " + Integer.parseInt(order));
+//            System.out.println("n = "+n);
+//            if(n==0){
+//                orders = new ArrayList<>();
+//            }
+//            System.out.println("orders: " + orders.toString());
+//            System.out.println("\nOrder " + Integer.parseInt(order));
             orders.add(Integer.parseInt(order));
-            System.out.println("orders: " + orders.toString());
+//            System.out.println("orders: " + orders.toString());
             messages.add(receivedMessage);
 //            System.out.println("\nMessage " + receivedMessage);
 //            Thread.sleep(10);
         }
-            }
+    }
+    public int get() throws IOException {
+        byte[] bytes = new byte[100];
+        DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
+        socket.receive(packet);
+        String tmp = new String(bytes, 0, packet.getLength());
+        System.out.println("\nGot: " + tmp);
+//        String key = "l5ukpxmtg7u8ko/t";
+//        SecurityProtocol securityProtocol = new SecurityProtocol(tmp);
+//        tmp = securityProtocol.getMessage();
+
+//        tmp = securityProtocol.getKeys().decryptData(tmp.getBytes(),securityProtocol.getKeys().getPrivate_modulus(), securityProtocol.getKeys().getPrivate_exponent());
+        String order = "";
+        String receivedMessage = "";
+        String receivedChecksum = "";
+        int i = 0;
+        while (tmp.charAt(i) != ' '){
+            order += tmp.charAt(i);
+            i++;
+        }
+//        System.out.println("Order : " + order);
+        i++;
+        while (tmp.charAt(i) != '/'){
+            receivedMessage += tmp.charAt(i);
+            i++;
+        }
+        i++;
+        while (tmp.charAt(i)!= '*'){
+            receivedChecksum += tmp.charAt(i);
+            i++;
+        }
+        byte[] bytesOfMessage = receivedMessage.getBytes();
+        String newChecksum = TransportProtocol.getCRC32Checksum(bytesOfMessage) + "";
+//        newChecksum = "fe";
+        if(!newChecksum.equals(receivedChecksum)){
+//            System.out.println(newChecksum + " " + receivedChecksum);
+            return -1;
+        }
+//        else if(receivedMessage.equals("call")){
+//            is_ok = false;
+//        }
+//        else {
+//            System.out.println("n = "+n);
+//            if(n==0){
+//                orders = new ArrayList<>();
+//            }
+            return Integer.parseInt(receivedMessage);
+//            System.out.println("orders: " + orders.toString());
+//            System.out.println("\nOrder " + Integer.parseInt(order));
+//            orders.add(Integer.parseInt(order));
+//            System.out.println("orders: " + orders.toString());
+//            messages.add(receivedMessage);
+//            System.out.println("\nMessage " + receivedMessage);
+//            Thread.sleep(10);
+//        }
+//        return receivedMessage;
+    }
 }

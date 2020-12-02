@@ -1,6 +1,6 @@
 package Protocols.Transport;
 
-import Protocols.Session.SecurityProtocol;
+//import Protocols.Session.SecurityProtocol;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -26,7 +26,7 @@ public class TransportProtocol {
     private long maxSize;
     private String data;
     private List<String> messages;
-    private SecurityProtocol securityProtocol;
+//    private SecurityProtocol securityProtocol;
 //    private AESEncryption aesEncryption;
 
     public void send(DatagramSocket socket, InetAddress address, int port, String data) throws IOException, IllegalBlockSizeException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidKeySpecException {
@@ -37,6 +37,7 @@ public class TransportProtocol {
         this.port = port;
         maxSize = 10;
         messages = new ArrayList<>();
+        prepate_for_send();
 //        byte[] bytes = new byte[10000];
 //        DatagramPacket packet1 = new DatagramPacket(bytes,bytes.length);
 //        socket.receive(packet1);
@@ -57,7 +58,7 @@ public class TransportProtocol {
     }
 
 
-    public void receive(DatagramSocket socket, InetAddress address) throws IOException, InterruptedException, InvalidKeySpecException, NoSuchAlgorithmException {
+    public String receive(DatagramSocket socket, InetAddress address) throws IOException, InterruptedException, InvalidKeySpecException, NoSuchAlgorithmException {
         this.socket = socket;
         data = "";
         maxSize = 10;
@@ -72,22 +73,41 @@ public class TransportProtocol {
 //        System.out.println(key_to_send);
 //        DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, 3000);
 //        socket.send(packet);
-         receiveMessages();
+        prepare_for_receive();
+        String s = receiveMessages();
+        return  s;
+    }
+
+    private void prepate_for_send(){
+
+    }
+
+    public void prepare_for_receive(){
+
     }
 
     private void sendMessages() throws NoSuchAlgorithmException {
         generateMessages();
+        byte[] bytes = messages.get(messages.size()-1).getBytes();
+        DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
+        try {
+            socket.send(packet);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("\nsend: " + messages.get(messages.size()-1));
+        messages.remove(messages.size()-1);
         ExecutorService executorService = Executors.newFixedThreadPool(5);
 
 //        String key = "l5ukpxmtg7u8ko/t";
         for(String message : messages){
 //            SecurityProtocol securityProtocol = new SecurityProtocol(true,message);
 //            message = securityProtocol.getMessage();
-            Sender sender = new Sender(securityProtocol,socket,address,port,message);
+            Sender sender = new Sender(socket,address,port,message);
             executorService.execute(sender);
-            }
-        executorService.shutdown();
         }
+        executorService.shutdown();
+    }
 
     private void generateMessages(){
         int nrDigits = 0, nr = messages.size();
@@ -109,39 +129,53 @@ public class TransportProtocol {
         byte[] bytes = tmp.getBytes();
         tmp = messages.size() + " " + tmp + "/" + getCRC32Checksum(bytes) + "*";
         messages.add(tmp);
+        tmp = messages.size() + "";
+        bytes = tmp.getBytes();
+        tmp = messages.size() + " " + tmp + "/" + getCRC32Checksum(bytes) + "*";
+        messages.add(tmp);
     }
 
-    private void receiveMessages() throws IOException, InterruptedException {
+    private String receiveMessages() throws IOException, InterruptedException {
         maxSize = 10;
         messages = new ArrayList<>();
-        data = "";
-        Receiver receiver = new Receiver(socket,securityProtocol);
-        receiver.n = 0;
+        String data = "";
+        Receiver receiver = new Receiver(socket);
+//        receiver.n = 0;
 
-        Thread thread = new Thread(receiver);
-        thread.start();
-        Thread.sleep(1500);
-        receiver.kill();
-        thread.interrupt();
-        if (Receiver.is_ok) {
+//        Thread thread = new Thread(receiver);
+//        thread.start();
+//        Thread.sleep(150);
+//        receiver.kill();
+//        thread.interrupt();
+        int n = receiver.get();
+//        System.out.println("n = " + n);
+//        int i = 0;
+        while (n>0){
+            if (!Receiver.is_ok){
+                break;
+            }
+            receiver.doOnce();
+            n--;
+        }
+        if (Receiver.is_ok && n >= 0) {
             data = "";
 //            System.out.println("\neverything is ok");
-            System.out.println(receiver.getOrders().toString());
+//            System.out.println(receiver.getOrders().toString());
             String[] mes = new String[receiver.getMessages().size()];
 //            System.out.println();
-            System.out.println(receiver.getMessages().size());
+//            System.out.println(receiver.getMessages().size());
 //            System.out.println();
             for(int i = 0; i < receiver.getMessages().size(); i++){
-                System.out.println(receiver.getOrders().get(i) + ": " + receiver.getMessages().get(i));
+//                System.out.println(receiver.getOrders().get(i) + ": " + receiver.getMessages().get(i));
                 mes[receiver.getOrders().get(i)] = receiver.getMessages().get(i);
             }
-            System.out.println(mes.length);
-            System.out.println();
+//            System.out.println(mes.length);
+//            System.out.println();
             for(int i = 0; i < mes.length; i++){
-                System.out.println(i + ": \"" + mes[i] + "\"");
+//                System.out.println(i + ": \"" + mes[i] + "\"");
                 data += mes[i];
             }
-            System.out.println("\ndata = " + data);
+//            System.out.println("\ndata = " + data);
         }
         else {
             if(Receiver.attempts > 0) {
@@ -158,7 +192,9 @@ public class TransportProtocol {
             else
                 System.out.println("sorry, too much attempts");
         }
+//        System.out.println("data = " + data);
 //        System.out.println("done");
+        return data;
     }
 
     public static long getCRC32Checksum(byte[] bytes) {
