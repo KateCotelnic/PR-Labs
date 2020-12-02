@@ -1,14 +1,13 @@
 package Clients;
 
+import Protocols.Session.SecurityProtocol;
 import Protocols.Transport.TransportProtocol;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketTimeoutException;
+import java.net.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -23,30 +22,59 @@ public class Client {
 
             Scanner scanner = new Scanner(System.in);
             String reader;
-            TransportProtocol transportProtocol = new TransportProtocol();
-            do{
+
+//            TransportProtocol transportProtocol = new TransportProtocol(socket,address,port);
+            /////////////first send "took the phone"//////////////
+            while (true) {
+                System.out.println("Enter the command: ");
+                reader = scanner.nextLine();
+                byte[] buffer = reader.getBytes();
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, port);
+                socket.send(packet);
+//                transportProtocol.send(reader);
+                if(reader.equals("took"))
+                    break;
+            }
+            //////////////////receive public key//////////////////
+//                if(reader.equals("took")){
+//            System.out.println("began");
+            SecurityProtocol securityProtocol = new SecurityProtocol(true,socket,address,port);
+            while (true) {
                 System.out.println("Enter the number: ");
                 reader = scanner.nextLine();
-                transportProtocol.send(socket, address, port, reader);
+                securityProtocol.send(reader);
+                if(reader.equals("call"))
+                    break;
             }
-            while (!reader.equals("call"));
+//            String key = transportProtocol.receive();
+//            System.out.println(key);
+
+//                    SecurityProtocol securityProtocol = new SecurityProtocol(transportProtocol,true,socket,address,port);
+//                }
+//                transportProtocol.send(reader);
+//            }
 
 //            String s = transportProtocol.receive(socket,address);
 //            System.out.println(s);
-
-        } catch (SocketTimeoutException e){
-        } catch (IOException e){
-        } catch (NoSuchAlgorithmException e) {
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (SocketException e) {
             e.printStackTrace();
         } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
             e.printStackTrace();
         } catch (InvalidKeyException e) {
             e.printStackTrace();
         } catch (NoSuchPaddingException e) {
             e.printStackTrace();
-        } catch (BadPaddingException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 //        try (Socket socket = new Socket("localhost",3000)){

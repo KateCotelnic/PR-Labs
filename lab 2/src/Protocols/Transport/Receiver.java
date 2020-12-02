@@ -54,7 +54,7 @@ public class Receiver implements Runnable{
     public void kill() { killed = true; }
 
     public void doOnce() throws IOException {
-        byte[] bytes = new byte[100];
+        byte[] bytes = new byte[1000];
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         socket.receive(packet);
         String tmp = new String(bytes, 0, packet.getLength());
@@ -110,8 +110,10 @@ public class Receiver implements Runnable{
     }
     public int get() throws IOException {
         byte[] bytes = new byte[100];
+//        System.out.println("113");
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         socket.receive(packet);
+//        System.out.println("115");
         String tmp = new String(bytes, 0, packet.getLength());
         System.out.println("\nGot: " + tmp);
 //        String key = "l5ukpxmtg7u8ko/t";

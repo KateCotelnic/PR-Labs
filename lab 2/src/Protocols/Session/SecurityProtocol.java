@@ -1,14 +1,20 @@
 package Protocols.Session;
 
+import Protocols.Transport.TransportProtocol;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import java.io.IOException;
 import java.math.BigInteger;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
+import java.util.ArrayList;
 
 public class SecurityProtocol {
     //    private String message;
@@ -16,9 +22,12 @@ public class SecurityProtocol {
     private BigInteger private_modulus;
     private  BigInteger public_exponent;
     private BigInteger private_exponent;
+    private TransportProtocol transportProtocol;
 
-    public SecurityProtocol() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+    public SecurityProtocol(boolean want_to_send, DatagramSocket socket, InetAddress address, int port) throws NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InterruptedException, IOException, IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException {
+        this.transportProtocol = new TransportProtocol(socket,address,port);
+        if(!want_to_send) {
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
             keyPairGenerator.initialize(2048);
             KeyPair keyPair = keyPairGenerator.generateKeyPair();
             PublicKey publicKey = keyPair.getPublic();
@@ -40,12 +49,34 @@ public class SecurityProtocol {
 //            byte[] encryptedData = rsaObj.encryptData("Data to encrypt");
 
 //            String decreptedData = rsaObj.decryptData(encryptedData,private_modulus, private_exponent);
-
+            send_key();
+        }
+        else{
+//            transportProtocol.send("took");
+//            System.out.println("here");
+            receive_key();
+        }
     }
 
-    public SecurityProtocol(BigInteger public_modulus, BigInteger public_exponent){
-        this.public_modulus = public_modulus;
-        this.public_exponent = public_exponent;
+    private void send_key() throws IllegalBlockSizeException, InterruptedException, NoSuchAlgorithmException, IOException, BadPaddingException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException {
+        String public_key = public_exponent + " " + public_modulus;
+        System.out.println("pm = " + public_modulus);
+        System.out.println("pe = " + public_exponent);
+        transportProtocol.send(public_key);
+    }
+
+    private void receive_key() throws InterruptedException, InvalidKeySpecException, NoSuchAlgorithmException, IOException {
+        String key = transportProtocol.receive();
+//        System.out.println("key = " + key);
+        String[] arrOfStr = key.split(" ", 5);
+        public_exponent = new BigInteger(arrOfStr[0]);
+        System.out.println("\ngot public modulus: " + public_exponent);
+//        int i = 0;
+//        while (arrOfStr[1].charAt(i) >= '0' && arrOfStr[1].charAt(i) <= '9')
+//            i++;
+//        String s = arrOfStr[1].substring(0,i);
+        public_modulus = new BigInteger(arrOfStr[1]);
+        System.out.println("\ngot public exponent: " + public_modulus);
     }
 
     public BigInteger getPublic_modulus() {
@@ -167,4 +198,13 @@ public class SecurityProtocol {
 //    }
 
 
+    public void send(String data) throws IllegalBlockSizeException, InterruptedException, NoSuchAlgorithmException, IOException, BadPaddingException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException {
+        transportProtocol.setSecured(true);
+        transportProtocol.send(data);
+    }
+
+    public String receive() throws InterruptedException, InvalidKeySpecException, NoSuchAlgorithmException, IOException {
+        transportProtocol.setSecured(true);
+        return transportProtocol.receive();
+    }
 }

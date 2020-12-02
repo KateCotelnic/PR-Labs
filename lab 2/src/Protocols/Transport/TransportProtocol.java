@@ -1,6 +1,6 @@
 package Protocols.Transport;
 
-//import Protocols.Session.SecurityProtocol;
+import Protocols.Session.SecurityProtocol;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.zip.CRC32;
 import java.util.zip.Checksum;
 
@@ -23,70 +24,59 @@ public class TransportProtocol {
     DatagramSocket socket;
     InetAddress address;
     int port;
-    private long maxSize;
+    private long maxSize = 20;
     private String data;
     private List<String> messages;
-//    private SecurityProtocol securityProtocol;
-//    private AESEncryption aesEncryption;
+    private boolean secured = false;
 
-    public void send(DatagramSocket socket, InetAddress address, int port, String data) throws IOException, IllegalBlockSizeException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidKeySpecException {
+    public void setSecured(boolean secured) {
+        this.secured = secured;
+    }
 
-        this.data = data;
+    public TransportProtocol(DatagramSocket socket, InetAddress address, int port) throws IOException, InterruptedException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, NoSuchPaddingException, IllegalBlockSizeException {
         this.socket = socket;
         this.address = address;
         this.port = port;
-        maxSize = 10;
+//        if(is_sender){
+//            prepare_for_send();
+//        }
+//        else{
+//            prepare_for_receive();
+//        }
+    }
+
+    public void send(String data) throws NoSuchAlgorithmException, InterruptedException {
+        this.data = data;
         messages = new ArrayList<>();
-        prepate_for_send();
-//        byte[] bytes = new byte[10000];
-//        DatagramPacket packet1 = new DatagramPacket(bytes,bytes.length);
-//        socket.receive(packet1);
-//        String key = new String(bytes);
-//        System.out.println("key = " + key);
-//        String[] arrOfStr = key.split(" ", 5);
-//        BigInteger modulus = new BigInteger(arrOfStr[0]);
-//        System.out.println("\nmod: " + modulus);
-//        int i = 0;
-//        while (arrOfStr[1].charAt(i) >= '0' && arrOfStr[1].charAt(i) <= '9')
-//            i++;
-//        String s = arrOfStr[1].substring(0,i);
-//        BigInteger exponent = new BigInteger(s);
-//        System.out.println("\nexp: " + exponent);
-//        securityProtocol = new SecurityProtocol(modulus,exponent);
-//        this.data = new String(securityProtocol.getKeys().encryptData(data,modulus,exponent));
         sendMessages();
     }
 
 
-    public String receive(DatagramSocket socket, InetAddress address) throws IOException, InterruptedException, InvalidKeySpecException, NoSuchAlgorithmException {
-        this.socket = socket;
+    public String receive() throws IOException, InterruptedException {
         data = "";
-        maxSize = 10;
         messages = new ArrayList<>();
-//        securityProtocol = new SecurityProtocol();
-//        System.out.println("public modulus: " + securityProtocol.getKeys().getPublic_modulus());
-//        System.out.println("public exp: " + securityProtocol.getKeys().getPublic_exponent());
-//        String key_to_send = securityProtocol.getKeys().getPublic_modulus() + " " + securityProtocol.getKeys().getPublic_exponent();
-//        this.aesEncryption = new AESEncryption();
-//        Key key = this.aesEncryption.generateKey();
-//        byte[] buffer = key_to_send.getBytes();
-//        System.out.println(key_to_send);
-//        DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, 3000);
-//        socket.send(packet);
-        prepare_for_receive();
         String s = receiveMessages();
         return  s;
     }
 
-    private void prepate_for_send(){
+//    private void prepare_for_send() throws IOException, InterruptedException, InvalidKeySpecException, NoSuchAlgorithmException {
+////        securityProtocol = securityProtocol();
+//        String key = receive();
+//        System.out.println("key = " + key);
+//    }
 
-    }
+//    public void prepare_for_receive() throws InvalidKeySpecException, NoSuchAlgorithmException, IllegalBlockSizeException, InterruptedException, IOException, BadPaddingException, NoSuchPaddingException, InvalidKeyException {
+////        securityProtocol = new SecurityProtocol();
+////        String public_modulus = "" + securityProtocol.getPublic_modulus();
+////        String public_exponent = "" + securityProtocol.getPublic_exponent();
+////        String public_key = public_exponent + " " + public_modulus;
+//        System.out.println("pm = " + public_modulus);
+//        System.out.println("pe = " + public_exponent);
+//        messages = new ArrayList<>();
+//        send(public_key);
+//    }
 
-    public void prepare_for_receive(){
-
-    }
-
-    private void sendMessages() throws NoSuchAlgorithmException {
+    private void sendMessages() throws NoSuchAlgorithmException, InterruptedException {
         generateMessages();
         byte[] bytes = messages.get(messages.size()-1).getBytes();
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
@@ -107,6 +97,7 @@ public class TransportProtocol {
             executorService.execute(sender);
         }
         executorService.shutdown();
+        boolean finished = executorService.awaitTermination(1, TimeUnit.MINUTES);
     }
 
     private void generateMessages(){
@@ -115,9 +106,10 @@ public class TransportProtocol {
             nr /= 10;
             ++nrDigits;
         }
-        maxSize = maxSize - 3 - 2 - nrDigits;
+//        maxSize = maxSize - 3 - 2 - 3;
         String tmp;
         while (data.length()>=maxSize) {
+            System.out.println("max = " + maxSize);
             tmp = data.substring(0, (int) maxSize);
             data = data.substring((int) maxSize);
             byte[] bytes = tmp.getBytes();
@@ -136,7 +128,7 @@ public class TransportProtocol {
     }
 
     private String receiveMessages() throws IOException, InterruptedException {
-        maxSize = 10;
+//        maxSize = 10;
         messages = new ArrayList<>();
         String data = "";
         Receiver receiver = new Receiver(socket);
@@ -147,6 +139,7 @@ public class TransportProtocol {
 //        Thread.sleep(150);
 //        receiver.kill();
 //        thread.interrupt();
+//        System.out.println("transport 140");
         int n = receiver.get();
 //        System.out.println("n = " + n);
 //        int i = 0;
