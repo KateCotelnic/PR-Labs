@@ -6,6 +6,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -28,10 +29,9 @@ public class TransportProtocol {
     private String data;
     private List<String> messages;
     private boolean secured = false;
+    private BigInteger exponent;
+    private BigInteger modulus;
 
-    public void setSecured(boolean secured) {
-        this.secured = secured;
-    }
 
     public TransportProtocol(DatagramSocket socket, InetAddress address, int port) throws IOException, InterruptedException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, NoSuchPaddingException, IllegalBlockSizeException {
         this.socket = socket;
@@ -50,11 +50,24 @@ public class TransportProtocol {
         messages = new ArrayList<>();
         sendMessages();
     }
-
+    public void send(String data, BigInteger public_exponent, BigInteger public_modulus) throws NoSuchAlgorithmException, InterruptedException {
+        this.exponent = public_exponent;
+        this.modulus = public_modulus;
+        this.secured = true;
+        send(data);
+    }
 
     public String receive() throws IOException, InterruptedException {
         data = "";
         messages = new ArrayList<>();
+        String s = receiveMessages();
+        return  s;
+    }
+
+    public String receive(BigInteger private_exponent, BigInteger private_modulus) throws IOException, InterruptedException {
+        this.exponent = private_exponent;
+        this.modulus = private_modulus;
+        this.secured = true;
         String s = receiveMessages();
         return  s;
     }
@@ -78,7 +91,13 @@ public class TransportProtocol {
 
     private void sendMessages() throws NoSuchAlgorithmException, InterruptedException {
         generateMessages();
-        byte[] bytes = messages.get(messages.size()-1).getBytes();
+        byte[] bytes;
+        if(secured){
+             bytes =  SecurityProtocol.encryptData(messages.get(messages.size() - 1),exponent,modulus);
+        }
+        else {
+            bytes = messages.get(messages.size() - 1).getBytes();
+        }
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
         try {
             socket.send(packet);
@@ -89,11 +108,8 @@ public class TransportProtocol {
         messages.remove(messages.size()-1);
         ExecutorService executorService = Executors.newFixedThreadPool(5);
 
-//        String key = "l5ukpxmtg7u8ko/t";
         for(String message : messages){
-//            SecurityProtocol securityProtocol = new SecurityProtocol(true,message);
-//            message = securityProtocol.getMessage();
-            Sender sender = new Sender(socket,address,port,message);
+            Sender sender = new Sender(socket,address,port,message,secured,exponent,modulus);
             executorService.execute(sender);
         }
         executorService.shutdown();
@@ -140,14 +156,14 @@ public class TransportProtocol {
 //        receiver.kill();
 //        thread.interrupt();
 //        System.out.println("transport 140");
-        int n = receiver.get();
+        int n = receiver.get(secured, exponent, modulus);
 //        System.out.println("n = " + n);
 //        int i = 0;
         while (n>0){
             if (!Receiver.is_ok){
                 break;
             }
-            receiver.doOnce();
+            receiver.doOnce(secured,exponent,modulus);
             n--;
         }
         if (Receiver.is_ok && n >= 0) {

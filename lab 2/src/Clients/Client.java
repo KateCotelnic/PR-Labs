@@ -28,6 +28,7 @@ public class Client {
             while (true) {
                 System.out.println("Enter the command: ");
                 reader = scanner.nextLine();
+
                 byte[] buffer = reader.getBytes();
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, port);
                 socket.send(packet);

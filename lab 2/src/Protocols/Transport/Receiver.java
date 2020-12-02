@@ -2,7 +2,10 @@ package Protocols.Transport;
 
 //import Protocols.Session.SecurityProtocol;
 
+import Protocols.Session.SecurityProtocol;
+
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.ArrayList;
@@ -38,27 +41,49 @@ public class Receiver implements Runnable{
     public void run() {
 //        System.out.println("orders: " + orders.toString());
 //        System.out.println("messages: " + messages.toString());
-        if(!is_ok){
-            kill();
-        }
-        while (!killed) {
-            try {
-                doOnce();
+//        if(!is_ok){
+//            kill();
+//        }
+//        while (!killed) {
+//            try {
+//                doOnce();
                 n++;
-            }
-            catch (IOException ex)
-            { killed = true; }
-        }
+//            }
+//            catch (IOException ex)
+//            { killed = true; }
+//        }
     }
 
     public void kill() { killed = true; }
 
-    public void doOnce() throws IOException {
+    public void doOnce(boolean secured, BigInteger exponent, BigInteger modulus) throws IOException {
         byte[] bytes = new byte[1000];
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         socket.receive(packet);
-        String tmp = new String(bytes, 0, packet.getLength());
-
+//        for(int i = 0; i < bytes.length;i++){
+//            System.out.print(bytes[i] + ", ");
+//        }
+        int lastGoodChar=0;
+        while (!(bytes[lastGoodChar]==0 && bytes[lastGoodChar+1]==0 && bytes[lastGoodChar+2]==0))
+            lastGoodChar++;
+//        System.out.println("last = " + lastGoodChar);
+//        System.out.println(bytes[lastGoodChar-1]);
+        byte[] buf = new byte[lastGoodChar];
+//        buf = bytes;
+        for(int i = 0; i < lastGoodChar;i++){
+            buf[i] = bytes[i];
+        }
+//        for(int i = 0; i < buf.length;i++){
+//            System.out.print(buf[i] + ", ");
+//        }
+//        System.out.println("115");
+        String tmp;
+        if(secured){
+            tmp = SecurityProtocol.decryptData(buf,exponent,modulus);
+        }
+        else {
+            tmp = new String(buf, 0, packet.getLength());
+        }
         System.out.println("\nGot: " + tmp);
 //        String key = "l5ukpxmtg7u8ko/t";
 //        SecurityProtocol securityProtocol = new SecurityProtocol(tmp);
@@ -108,13 +133,36 @@ public class Receiver implements Runnable{
 //            Thread.sleep(10);
         }
     }
-    public int get() throws IOException {
-        byte[] bytes = new byte[100];
+    public int get(boolean secured, BigInteger exponent, BigInteger modulus) throws IOException {
+        byte[] bytes = new byte[1000];
 //        System.out.println("113");
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         socket.receive(packet);
+//        System.out.println("bytes: ");
+//        for(int i = 0; i < bytes.length;i++){
+//            System.out.print(bytes[i] + ", ");
+//        }
+//        System.out.println();
+        int lastGoodChar=0;
+        while (!(bytes[lastGoodChar]==0 && bytes[lastGoodChar+1]==0 && bytes[lastGoodChar+2]==0))
+            lastGoodChar++;
+//        System.out.println("last = " + lastGoodChar);
+//        System.out.println(bytes[lastGoodChar-1]);
+        byte[] buf = new byte[lastGoodChar];
+//        buf = bytes;
+        for(int i = 0; i < lastGoodChar;i++){
+            buf[i] = bytes[i];
+        }
+//        for(int i = 0; i < buf.length;i++){
+//            System.out.print(buf[i] + ", ");
+//        }
 //        System.out.println("115");
-        String tmp = new String(bytes, 0, packet.getLength());
+        String tmp;
+        if(secured){
+            tmp = SecurityProtocol.decryptData(buf,exponent,modulus);
+        } else{
+            tmp = new String(bytes, 0, packet.getLength());
+        }
         System.out.println("\nGot: " + tmp);
 //        String key = "l5ukpxmtg7u8ko/t";
 //        SecurityProtocol securityProtocol = new SecurityProtocol(tmp);
