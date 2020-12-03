@@ -1,4 +1,4 @@
-#Short description
+  #Short description
 
 I've created a demo for a phone connection. Client makes what he wants until he takes the phone to enter the number (till a client enter "took"). 
 Then there is building a secured "connection" between server and client. 
