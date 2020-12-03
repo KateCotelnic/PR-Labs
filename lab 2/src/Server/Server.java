@@ -1,7 +1,6 @@
 package Server;
 
 import Protocols.Session.SecurityProtocol;
-import Protocols.Transport.TransportProtocol;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -18,9 +17,9 @@ import java.security.spec.InvalidKeySpecException;
 
 public class Server {
 
-    private static String[][] numbers = {{"1", "12"},{"2","068742396"}};
+    private static String[][] numbers = {{"1", "022568932"},{"2","022578925"}};
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         try {
             int port = 3000;
             DatagramSocket socket = new DatagramSocket(port);
@@ -35,21 +34,10 @@ public class Server {
                 port = packet.getPort();
                 backMessage = new String(bytes, 0, packet.getLength());
                 System.out.println("Receive: " + backMessage);
-//                String tmp = transportProtocol.receive();
-//            System.out.println(tmp);
                 if(backMessage.equals("took")){
                     break;
                 }
-//                String s = transportProtocol.receive(socket, address);
-//                System.out.println("s = " + s);
-//                if (s.equals("call"))
-//                    break;
-//                if (!s.isEmpty()) {
-//                    string += s;
-//                }
             }
-//            TransportProtocol transportProtocol = new TransportProtocol(socket,address,port);
-//            Thread.sleep(1000);
             System.out.println("began");
             SecurityProtocol securityProtocol = new SecurityProtocol(false,socket,address,port);
             String number = ""; boolean is_number = true;
@@ -74,7 +62,6 @@ public class Server {
             System.out.println("public modulus = " + public_modulus);
             if(is_number){
                 if(number.equals(numbers[0][1]) || number.equals(numbers[1][1])){
-                    DatagramSocket socket1 = new DatagramSocket();
                     System.out.println("true");
                     int port1 = 3001;
                     InetAddress address1 = InetAddress.getLocalHost();
@@ -82,9 +69,18 @@ public class Server {
                     byte[] buffer = str.getBytes();
                     DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address1, port1);
                     socket.send(packet);
-                    SecurityProtocol securityProtocol2 = new SecurityProtocol(false,socket1,address1,port1);
-//                    String answer = securityProtocol2.receive();
-//                    System.out.println("answer = " + answer);
+                    SecurityProtocol securityProtocol2 = new SecurityProtocol(false,socket,address1,port1);
+                    String answer = securityProtocol2.receive();
+                    System.out.println("answer = " + answer);
+                    if(answer.equals("busy")){
+                        securityProtocol1.send("is busy");
+                    }
+                    else if(answer.equals("no answer")){
+                        securityProtocol1.send("no answer");
+                    }
+                    else {
+                        securityProtocol1.send(answer);
+                    }
                 }
                 else {
                     System.out.println("no such number");
@@ -98,14 +94,8 @@ public class Server {
                 securityProtocol1.send("wrong input");
             }
 
-//            System.out.println("string = " + string);
-//            Thread.sleep(1500);
-//            transportProtocol.send(socket,address,port,string + " hi! thats me)");
-
         } catch (SocketException e) {
         } catch (IOException e) {
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeySpecException e) {
@@ -121,14 +111,5 @@ public class Server {
         } catch (BadPaddingException e) {
             e.printStackTrace();
         }
-
-//        System.setProperty("javax.net.ssl.keyStore", "kk.store");
-//        System.setProperty("javax.net.ssl.keyPassword", "kpassword");
-//        ServerSocket serverSocket = ((SSLServerSocketFactory) SSLServerSocketFactory.getDefault()).createServerSocket(3000);
-//        System.out.println("Server up");
-//        while (true){
-//            new ServerThread(serverSocket.accept()).start();
-//        }
-//    }
     }
 }

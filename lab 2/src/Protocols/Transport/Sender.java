@@ -1,7 +1,5 @@
 package Protocols.Transport;
 
-//import Protocols.Session.SecurityProtocol;
-
 import Protocols.Session.SecurityProtocol;
 
 import java.io.IOException;
@@ -20,7 +18,7 @@ public class Sender implements Runnable{
     private BigInteger exponent;
     private BigInteger modulus;
 
-    public Sender(DatagramSocket socket, InetAddress address, int port, String message, boolean secured, BigInteger exponent, BigInteger modulus) throws NoSuchAlgorithmException {
+    public Sender(DatagramSocket socket, InetAddress address, int port, String message, boolean secured, BigInteger exponent, BigInteger modulus){
         this.socket = socket;
         this.address = address;
         this.port = port;
@@ -28,13 +26,11 @@ public class Sender implements Runnable{
         this.secured = secured;
         this.exponent = exponent;
         this.modulus = modulus;
-//        this.message = new String(securityProtocol.getKeys().encryptData(message));
     }
 
     @Override
     public void run() {
         byte[] bytes = message.getBytes();
-//        System.out.println(message);
         if(secured){
             try {
                 bytes = SecurityProtocol.encryptData(message,exponent,modulus);
@@ -45,9 +41,9 @@ public class Sender implements Runnable{
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, port);
         try {
             socket.send(packet);
+            System.out.println("\nsend: " + message);
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        System.out.println("\nsend: " + message);
     }
 }
