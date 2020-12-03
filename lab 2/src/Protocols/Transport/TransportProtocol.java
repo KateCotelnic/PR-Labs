@@ -125,7 +125,7 @@ public class TransportProtocol {
 //        maxSize = maxSize - 3 - 2 - 3;
         String tmp;
         while (data.length()>=maxSize) {
-            System.out.println("max = " + maxSize);
+//            System.out.println("max = " + maxSize);
             tmp = data.substring(0, (int) maxSize);
             data = data.substring((int) maxSize);
             byte[] bytes = tmp.getBytes();

@@ -48,6 +48,6 @@ public class Sender implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("\nsend: " + message);
+//        System.out.println("\nsend: " + message);
     }
 }
